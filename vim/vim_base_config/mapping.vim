@@ -20,8 +20,6 @@
 noremap <C-e> <End>
 noremap <C-a> <Home>
 noremap! <C-e> <End>
-noremap <C-k> d<End>
-noremap! <C-k> <ESC>d$i
 " increment: errorが出るので一時的に停止
 " noremap <C-s> <C-a>
 
@@ -151,3 +149,7 @@ nnoremap <C-J> :resize +2<CR>
 nnoremap <C-K> :resize -2<CR>
 " Increase the width of the current window to the right
 nnoremap <C-L> :vertical resize -2<CR>
+
+" vscodeで読み込むときにC-Kがじゃまになるっぽい?
+noremap <C-k> d<End>
+noremap! <C-k> <ESC>d$i
