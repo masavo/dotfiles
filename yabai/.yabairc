@@ -1,4 +1,17 @@
 #!/usr/bin/env sh
+
+### how to launch
+# execute fowllow command
+# sudo visudo -f /private/etc/sudoers.d/yabai
+#
+# and uncomment this
+# > <user> ALL=(root) NOPASSWD: sha256:<hash> <yabai> --load-sa
+#
+# For more info, please check doc: https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
+###
+
+
+
 # https://github.com/koekeishiya/yabai/issues/838
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
@@ -56,10 +69,10 @@ yr title='^(Opening)' manage=off layer=above
 
 yabai -m space 1 --label "ToDo"
 yabai -m space 2 --label "Note"
-yabai -m space 3 --label "Browser"
+yabai -m space 3 --label "Arc"
 yabai -m space 4 --label "Terminal"
 yabai -m space 5 --label "Chat"
-yabai -m space 6 --label "Book"
+yabai -m space 6 --label "Browser2"
 yabai -m space 7 --label "TeamChat"
 yabai -m space 8 --label "Editor"
 
@@ -67,10 +80,12 @@ yabai -m space 8 --label "Editor"
 # https://github.com/koekeishiya/yabai/issues/1387
 yabai -m rule --add app="^TickTick$" space=^"ToDo"
 yabai -m rule --add app="^Obsidian$" space=^"Note"
-yabai -m rule --add app="^Arc$" space=^"Browser" manage=off layer=above
+yabai -m rule --add app="^Arc$" manage=off layer=above
+# yabai -m rule --add app="^Arc$" space=^"Browser2" manage=off layer=above
 yabai -m rule --add app="^Kindle$" space=^"Book"
 yabai -m rule --add app="^Google Chrome$" space=^"Browser"
-yabai -m rule --add app="LINE" space=^"Chat" #Wmanage=on layer=above
+yabai -m rule --add app="LINE" space=^"Chat" manage=off layer=above
+yabai -m rule --add app="LINE" space=^"Chat" manage=off layer=above
 yabai -m rule --add app="^Warp$" space=^"Terminal"
 yabai -m rule --add app="^Slack$" space=^"TeamChat"
 
@@ -88,6 +103,7 @@ yabai -m config layout                 bsp
 yabai -m config --space 1 layout      float
 # arcも
 yabai -m config --space 3 layout      float
+yabai -m config --space 6 layout      float
 
 # TODO: app消したら、arcに戻る
 
