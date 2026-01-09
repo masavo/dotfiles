@@ -81,14 +81,42 @@ nmap gt :tabnext<CR>
 exmap tabprev obcommand workspace:previous-tab
 nmap gT :tabprev<CR>
 
+" Window splitting (same file in new pane)
 exmap splitvertical obcommand workspace:split-vertical
 exmap splithorizontal obcommand workspace:split-horizontal
+nmap <C-w>v :splitvertical<CR>
+nmap <C-w>s :splithorizontal<CR>
+
+" Window navigation
+exmap focusleft obcommand editor:focus-left
+exmap focusright obcommand editor:focus-right
+exmap focusup obcommand editor:focus-top
+exmap focusdown obcommand editor:focus-bottom
+nmap <C-w>h :focusleft<CR>
+nmap <C-w>l :focusright<CR>
+nmap <C-w>k :focusup<CR>
+nmap <C-w>j :focusdown<CR>
+
+" Close current pane
+exmap closepane obcommand workspace:close
+nmap <C-w>q :closepane<CR>
+nmap <C-w>c :closepane<CR>
 
 " Navigate between headings (default in plugin)
 " [[ and ]] are already provided
 
+" Additional window shortcuts (from mapping.vim s-prefixed commands)
+" Map some of the original s-prefixed commands to Obsidian equivalents
+nmap ss :splithorizontal<CR>
+nmap sv :splitvertical<CR>
+nmap sq :closepane<CR>
+nmap sj :focusdown<CR>
+nmap sk :focusup<CR>
+nmap sl :focusright<CR>
+nmap sh :focusleft<CR>
+
 " TODO: The following mappings from vim_base_config are NOT supported:
-" - Complex window switching mappings (s + hjkl combinations)
+" - Some complex window switching mappings (s + HJKL for moving panes)
 " - Buffer navigation (sN, sP, st, ss, sv, sq, sQ)
 " - Window resizing with Ctrl+H/J/K/L (resize commands)
 " - Ctrl+@ escape mapping (special terminal sequence)

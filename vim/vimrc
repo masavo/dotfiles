@@ -55,7 +55,7 @@ set t_Co=256
 """"""""""""""""""""""""""""""""""""""""
 " file-type settings
 """"""""""""""""""""""""""""""""""""""""
-au FileType uml command! uml :!open Google\ Chrome %
+au FileType uml command! uml :!open Arc %
 
 """"""""""""""""""""""""""""""""""""""""
 " base-config: mapping
@@ -115,67 +115,38 @@ source ~/dotfiles/vim/color-scheme.vim
 """"""""""""""""""""""""""""""""""""""""
 " extensions
 """"""""""""""""""""""""""""""""""""""""
-source ~/dotfiles/vim/vim_extend/continuous-paste.vim
+" source ~/dotfiles/vim/vim_extend/continuous-paste.vim
+" continuous-paste
+xnoremap p pgvy
 source ~/dotfiles/vim/vim_extend/no_indent_copy.vim
 source ~/dotfiles/vim/vim_extend/tab-line.vim
-
-command! Tml :edit ~/dotfiles/vim/vim_extend/dein.toml
-command! Vrc :edit ~/.vimrc
-
-autocmd bufnewfile,bufread *.tsx set filetype=typescript.tsx
-autocmd bufnewfile,bufread *.jsx set filetype=javascript.jsx
-autocmd BufNewFile,BufRead *.fish  set filetype=fish
-autocmd BufNewFile,BufRead *.html.slim  set filetype=slim
-autocmd BufNewFile,BufRead *.schema  set filetype=ruby
-autocmd BufNewFile,BufRead Schemafile  set filetype=ruby
-autocmd BufNewFile,BufRead *.sql.job  set filetype=sql
-autocmd BufNewFile,BufRead *.ct  set filetype=sql
+source ~/dotfiles/vim/vim_extend/smart-insert.vim
 
 """"""""""""""""""""""""""""""""""""""""
 " base-config
 """"""""""""""""""""""""""""""""""""""""
 source ~/dotfiles/vim/vim_base_config/mapping.vim
+" split for obsidian vimrc support
+source ~/dotfiles/vim/vim_base_config/window-split-config.vim
+source ~/dotfiles/vim/vim_base_config/bufnewfile.vim
 
-" window
-set splitbelow " 新しいウィンドウを下に開く
-set splitright " 新しいウィンドウを右に開く
 
-" tarminal mode
-if has('nvim')
-  " Neovim 用
-  " TODO splitしたい
-  autocmd TermOpen term://* startinsert
-  " tnoremap <Esc> <C-\><C-n>
-  " noremap :te :split term://fish
-  " autocmd WinEnter * if &buftype == 'terminal' | :startinsert | endif
-  " tmap <C-W>N <C-\><C-n>
-  " tmap <C-W>h <C-W>h
-  " TODO 微妙に遅いので、なんとかしたい
-  tnoremap <C-w>h <C-\><C-n><C-w>h
-  tnoremap <C-w>j <C-\><C-n><C-w>j
-  tnoremap <C-w>k <C-\><C-n><C-w>k
-  tnoremap <C-w>l <C-\><C-n><C-w>l
-  inoremap <C-w>h <C-\><C-n><C-w>h
-  inoremap <C-w>j <C-\><C-n><C-w>j
-  inoremap <C-w>k <C-\><C-n><C-w>k
-  inoremap <C-w>l <C-\><C-n><C-w>l
+""""""""""""""""""""""""""""""""""""""""
+" completion
+""""""""""""""""""""""""""""""""""""""""
+" ref: https://note.com/yasukotelin/n/na87dc604e042
 
-  " When forcus insert mode
-  " https://github.com/neovim/neovim/issues/8816
-  let g:previous_window = -1
-  function SmartInsert()
-    if &buftype == 'terminal'
-      if g:previous_window != winnr()
-        startinsert
-      endif
-      let g:previous_window = winnr()
-    else
-      let g:previous_window = -1
-    endif
-  endfunction
+" Enterで補完対象を確定したい 選んでいる時はまだ挿入したくない
+" set completeopt=menuone,noinsert
+" " 補完表示時のEnterで改行をしない
+" inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
+" " inoremap <expr><Tab>  "<CR>"
+"
+" " 矢印キーの上と下でも補完対象を選択できるが、こちらは選択したものが挿入はされない
+" inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
+" inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
 
-  au BufEnter * call SmartInsert()
-else
-  " Vim 用
-  tmap <C-W>' <C-W>N
-endif
+" TODO: show complete-menu by default
+"
+noremap <C-k> d<End>
+noremap! <C-k> <ESC>d$i

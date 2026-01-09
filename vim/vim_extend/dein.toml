@@ -121,7 +121,7 @@ repo = 'simeji/winresizer'
 hook_add = '''
   let g:winresizer_start_key = '<C-(>'
   let g:winresizer_gui_start_key = '<C-)>'
-  noremap <Leader>w :WinResizerStartResize<CR>
+  noremap <Leader>w :winResizerStartResize<CR>
 '''
 
 [[plugins]] # camelCase to snake_case
@@ -203,7 +203,11 @@ build = 'make'
 repo = 'Shougo/neocomplete.vim'
 
 hook_add = '''
-  let g:neocomplete#enable_at_startup = 1
+let g:acp_enableAtStartup = 0
+let g:neocomplete#sources#syntax#min_keyword_length = 2
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#enable_auto_select = 1
 '''
 
 [[plugins]]
