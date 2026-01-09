@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# インストーラー系
+rm ~/Downloads/*.dmg
+rm ~/Downloads/*.pkg
+
+# 画像系
+mv ~/Downloads/*.png ~/Pictures
+mv ~/Downloads/*.jpg ~/Pictures
+mv ~/Downloads/*.kra ~/Pictures
+mv ~/Downloads/*.HEIC ~/Pictures
+
+# 書類
+mv ~/Downloads/*.pdf ~/Documents
+mv ~/Downloads/*.zip
+

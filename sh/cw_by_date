@@ -1,0 +1,53 @@
+#!/usr/bin/env ruby
+
+require 'find'
+require 'time'
+require 'optparse'
+
+def count_characters_in_files(directory, start_date, end_date)
+  total_characters = 0
+
+  Find.find(directory) do |path|
+    if File.file?(path)
+      begin
+        # ファイルの作成日時を取得
+        creation_time = File.ctime(path)
+
+        # 指定された日付範囲内のファイルのみを対象
+        if creation_time >= start_date && creation_time <= end_date
+          # `wc -m`を使ってファイルの文字数を取得
+          character_count = `wc -m < "#{path}"`.strip.to_i
+          total_characters += character_count
+        end
+      rescue => e
+        puts "エラーが発生しました: #{e}"
+      end
+    end
+  end
+
+  total_characters
+end
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "使い方: ruby script.rb [options]"
+
+  opts.on("-d", "--directory DIRECTORY", "ディレクトリを指定") do |d|
+    options[:directory] = d
+  end
+
+  opts.on("-r", "--range DATE_RANGE", "日付範囲を指定 (例: 2024-01-01..2024-12-31)") do |r|
+    options[:range] = r
+  end
+end.parse!
+
+if options[:directory] && options[:range]
+  start_date_str, end_date_str = options[:range].split('..')
+  start_date = Date.parse(start_date_str).to_time
+  end_date = Date.parse(end_date_str).to_time
+
+  total_characters = count_characters_in_files(options[:directory], start_date, end_date)
+  puts "#{options[:range]}に作成されたファイルの文字総数: #{total_characters}"
+else
+  puts "ディレクトリと日付範囲を指定してください。"
+end

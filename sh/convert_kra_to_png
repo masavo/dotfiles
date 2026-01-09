@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# 引数が2つ指定されているか確認
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 input_dir output_dir"
+    exit 1
+fi
+
+# 引数を変数に割り当て
+input_dir="$1"
+output_dir="$2"
+
+# 出力ディレクトリが存在しない場合は作成
+mkdir -p "$output_dir"
+
+# .kraファイルを一つずつ処理
+for kra_file in "$input_dir"/*.kra; do
+    # ファイル名から拡張子を除く
+    filename=$(basename "$kra_file" .kra)
+    # .pngに変換
+    krita "$kra_file" --export --export-filename "$output_dir/$filename.png"
+    sleep 1  # 1秒待機
+done
