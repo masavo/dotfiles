@@ -5,18 +5,33 @@ if [ -d $DIR_NVIM ]; then #  -dはディレクトリがあるか確認する
   echo "created directory  $DIR_NVIM"
 fi
 
+DIR_CODEX=~/.codex
+if [ ! -d $DIR_CODEX ]; then
+  mkdir -p $DIR_CODEX
+  echo "created directory  $DIR_CODEX"
+fi
+
+if [ -d ~/.codex/rules ] && [ ! -L ~/.codex/rules ]; then
+  mkdir -p ~/dotfiles/ai/rules
+  cp -a ~/.codex/rules/. ~/dotfiles/ai/rules/
+  TS=$(date +%Y%m%d%H%M%S)
+  mv ~/.codex/rules ~/.codex/rules.bak.$TS
+fi
+
 unlink ~/.bashrc
 unlink ~/.vimrc
 unlink ~/.config/nvim/init.vim
 unlink ~/.peco
 unlink ~/.config/fish # 末尾にバックスラッシュをつけると、できなくなる
 unlink ~/.pryrc
+unlink ~/.codex/rules
 
 ln -s ~/dotfiles/.bashrc ~/.bashrc
 ln -s ~/dotfiles/vim/vimrc ~/.vimrc
 ln -s ~/dotfiles/vim/init.vim ~/.config/nvim/init.vim
 ln -s ~/dotfiles/.peco/ ~/.peco
 ln -s ~/dotfiles/.pryrc ~/.pryrc
+ln -s ~/dotfiles/ai/rules ~/.codex/rules
 
 touch ../bashrc/.bashrc.export.bashrc
 touch ../bashrc/.bashrc.local.bashrc
