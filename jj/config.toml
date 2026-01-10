@@ -3,3 +3,11 @@
 [user]
 name = "masavo"
 email = "stoicboys@gmail.com"
+
+[aliases]
+# fetch + rebase
+pull = ["util", "exec", "--", "sh", "-c", "jj git fetch && jj rebase -d main"]
+
+st = ["status"]
+lgt = ["log", "-n", "10"]
+spawn = ["new", "main"]
