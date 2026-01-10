@@ -5,6 +5,12 @@ if [ -d $DIR_NVIM ]; then #  -dはディレクトリがあるか確認する
   echo "created directory  $DIR_NVIM"
 fi
 
+DIR_JJ=~/.config/jj
+if [ ! -d $DIR_JJ ]; then
+  mkdir -p $DIR_JJ
+  echo "created directory  $DIR_JJ"
+fi
+
 DIR_CODEX=~/.codex
 if [ ! -d $DIR_CODEX ]; then
   mkdir -p $DIR_CODEX
@@ -21,6 +27,7 @@ fi
 unlink ~/.bashrc
 unlink ~/.vimrc
 unlink ~/.config/nvim/init.vim
+unlink ~/.config/jj/config.toml
 unlink ~/.peco
 unlink ~/.config/fish # 末尾にバックスラッシュをつけると、できなくなる
 unlink ~/.pryrc
@@ -29,6 +36,7 @@ unlink ~/.codex/rules
 ln -s ~/dotfiles/.bashrc ~/.bashrc
 ln -s ~/dotfiles/vim/vimrc ~/.vimrc
 ln -s ~/dotfiles/vim/init.vim ~/.config/nvim/init.vim
+ln -s ~/dotfiles/jj/config.toml ~/.config/jj/config.toml
 ln -s ~/dotfiles/.peco/ ~/.peco
 ln -s ~/dotfiles/.pryrc ~/.pryrc
 ln -s ~/dotfiles/ai/rules ~/.codex/rules
